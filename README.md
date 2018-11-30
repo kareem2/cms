@@ -1,7 +1,11 @@
 Before you start
 
 Configure /src/config.php in order the app could have access to the database
-Now you can launch the app. If you need public_html folder then just rename /public. If you want to start the php local server then use this command: php -S localhost:8000 -t public from the app root folder
+Now you can launch the app. If you need public_html folder then just rename /public. If you want to start the php local server then use this command: 
+```javascript
+php -S localhost:8000 -t public
+```
+from the app root folder
 Now you can try http://localhost:8000/ or http://localhost:8000/123/any-random-line urls in your browser
 
 **Routes**
