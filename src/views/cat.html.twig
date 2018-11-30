@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category[0].cats  }}{% if curr_page > 1 %}. Page {{curr_page}} {% endif %}{% endblock %}
+
+{% block body %}
+
+	<h3> {{ category[0].cats }} </h3>
+
+{% for a in category %}
+
+	
+		<div class="pure-g">
+			<div class="pure-u-1 setborder margintop15 padding10">
+				<div class="pure-g">
+					<div class="pure-u-1">
+						<strong><a href="/{{a.id}}/{{a.title|trim|replace({" ":"-", ".":"", "/":"","+":"",",":""})}}">{{a.title}} </a></strong>
+
+						{% if a.text|length > 0 %}
+						<p>{{ a.text|length > 500 ? a.text|slice(0, 500) ~ '...' : a.text }} <a href="/{{a.id}}/{{a.title|trim|replace({" ":"-", ".":"", "/":"","+":"",",":""})}}">Read more</a></p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	
+
+{% endfor %}
+
+{% if next_page == true %}
+<div class="pure-g">
+	<div class="pure-u-1 setborder margintop15 padding10">
+		{% set next_page = curr_page + 1 %}
+		<a href="/category/{{cat_id}}/{{next_page}}">Next</a>
+	</div>
+</div>
+{% endif %}
+
+{% endblock %}

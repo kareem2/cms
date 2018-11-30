@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Home page title{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="/css/pure-min.css">
+        <link rel="stylesheet" type="text/css" href="/css/pure-extend.css">
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="/css/grids-responsive-old-ie-min.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+            <link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css">
+        <!--<![endif]-->
+        <link rel="stylesheet" type="text/css" href="/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="/css/tabs.css">
+
+		<link rel="stylesheet" type="text/css" href="/css/slick/slick.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/slick/slick-theme.css"/>
+
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="/js/slick/slick.min.js"></script>
+
+    {% endblock %}
+</head>
+
+<body>
+
+<div class="homepage bigheader" id="bigheader">
+	<form  action="/search" method="POST">
+		<div class="searchlinediv">
+			<div class="searchlinediv"> 
+				<input name="search" placeholder=" &nbsp; What are you looking for?" onkeydown="if (event.keyCode == 13) myFunction(this.value)" type="text" />
+			</div>
+		</div>
+	</form>
+</div>
+ 
+<div class="content">
+	{% for item in items %}
+		<div class="pure-g comments margintop15">
+			<div class="pure-u-1">
+				<div class="commentsheader"><a href="/{{ item.id }}/{{ item.title|trim|replace({" ":"-", ".":"", "/":"","+":"",",":""})}}">{{ item.title }}</a>
+				</div>
+				<div class="feebacktext">
+					{{ item.text|length > 200 ? item.text|slice(0, 200) ~ '...' : item.text}}
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+
+<div class="darkfooter">
+	<div class="content">
+		<div class="pure-g darkfoote">
+			<div class="pure-u-3-5 homefooter">
+				<b>Recently added</b>
+				<div class="slickslider">
+					{% set cols = 3 %}
+					{% for f in footer_links %}
+						{% if loop.index0 % cols == 0 %}
+							<div>
+							<ul>
+						{% endif %}
+
+						<li ><a href="/{{f.id}}/{{f.title|trim|replace({" ":"-", ".":"", "/":"","+":"",",":""})}}">{{f.title}}</a></li>
+
+						{% if (loop.index0 % cols == cols - 1 or loop.last) %}
+							</ul>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="pure-u-1-5">
+				<b>Useful Links</b>
+				<ul>
+						<li><a href="/page/privacy-policy">Privacy Policy</a></li>
+						{% if blog_links|length > 0 %}<li><a href="/blog/">Blog</a></li>{% endif %}	
+                        <li><a href="/contact">Contact us</a></li>
+				</ul>
+			</div>
+			{% if blog_links|length > 0 %}
+				<div class="pure-u-1-5">
+					<b>Blog</b>
+					{% for l in blog_links %}
+						<li><a href="/blog/{{l.href}}">{{l.title}}</a> </li>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+</body>
+
+<script>
+    $(document).ready(function(){
+	  $('.slickslider').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 2000,
+		dots: false,
+	    prevArrow: false,
+	    nextArrow: false
+	  });
+	});
+
+	document.getElementById("bigheader").style.height = "100vh";
+</script>
+
+
+</html>
