@@ -37,3 +37,5 @@ There is also a class with helper functions in /src/helper.php
 Here you can find all supportive methods like checkFor404 and others. You can add methods here as well. 
 
 Framework is pretty simple and flexible. You can add anything you like from Symfony or Github repositories, just make sure they are safe and tested.
+
+Finally, you can find a test database with content inside database.sql.gz
